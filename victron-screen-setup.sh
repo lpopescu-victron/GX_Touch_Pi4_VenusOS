@@ -1,10 +1,28 @@
 #!/bin/bash
 
-# Ensure /usr/local/bin exists
+# Define the URL of this script on GitHub
+SCRIPT_URL="https://raw.githubusercontent.com/lpopescu-victron/GX_Touch_Pi4_VenusOS/main/victron-screen-setup.sh"
+
+# Download the latest version of this script to /home/root/
+curl -o /home/root/victron-screen-setup.sh "$SCRIPT_URL" || {
+  echo "Failed to download the script. Trying wget..."
+  wget -O /home/root/victron-screen-setup.sh "$SCRIPT_URL" || {
+    echo "Both curl and wget failed. Please install one of them (opkg install curl or opkg install wget)."
+    exit 1
+  }
+}
+
+# Make the downloaded script executable
+chmod +x /home/root/victron-screen-setup.sh
+
+# Create /usr/local/bin/ if it doesn't exist
 if [ ! -d /usr/local/bin ]; then
   mkdir -p /usr/local/bin
   chmod 755 /usr/local/bin
 fi
+
+# Move the script to /usr/local/bin/
+mv /home/root/victron-screen-setup.sh /usr/local/bin/victron-screen-setup.sh
 
 # Prompt for screen model
 echo "Select your screen model:"
