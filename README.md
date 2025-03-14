@@ -1,4 +1,4 @@
-Installation, run the script below
+Installation - run the script below:
 
 ```bash
 
